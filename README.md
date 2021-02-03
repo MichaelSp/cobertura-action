@@ -23,57 +23,21 @@ artifacts to circumvent this. See the workflows in this project for an implement
 
 ## Inputs
 
-### `repo_token` **Required**
+| Input                   | Description                                                                                                                        | Default         | Required |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------|-----------------|----------|
+| `repo_token`            | The GITHUB_TOKEN for this repo. See [details](https://help.github.com/en/articles/virtual-environments-for-github-actions#github_token-secret). e.g: `${{ secrets.GITHUB_TOKEN }}`   |                 | :check:  |
+| `path`                    | Path to the cobertura file. Glob pattern is supported.                                                                             | `**/coverage.xml` |          |
+| `skip_covered`            | If files with 100% should be skipped from report.                                                                                  | `true`            |          |
+| `minimum_coverage`        | Minimum allowed coverage percentage as an integer.                                                                                 | `60`              |          |
+| `show_line`               | Show line rate as specific column.                                                                                                 | `false`           |          |
+| `show_branch`             | Show branch rate as specific column.                                                                                               | `true`            |          |
+| `show_class_names`        | Show class names instead of file names.                                                                                            | `false`           |          |
+| `show_missing`            | Show line numbers of statements, per module, that was not executed.                                                                | `false`           |          |
+| `show_missing_max_length` | Crop missing line numbers strings that exceeds this length, provided as an integer. (Note: "..." is appended to a cropped string)  | `''`              |          |
+| `only_changed_files`      | Only show coverage for changed files.                                                                                              | `false`           |          |
+| `pull_request_number`     | Pull request number associated with the report. This property should be used when workflow trigger is different than pull_request. | `''`              |          |
+| `report_name`             |  Use a unique name for the report and comment. | `''` | |
 
-The GITHUB_TOKEN. See [details](https://help.github.com/en/articles/virtual-environments-for-github-actions#github_token-secret).
-
-### `path`
-
-The to the cobertura report. Defaults to `coverage.xml`. Glob pattern is supported.
-
-### `skip_covered`
-
-If files with 100% coverage should be ignored. Defaults to `true`.
-
-### `minimum_coverage`
-
-The minimum allowed coverage percentage as an integer.
-
-### `show_line`
-
-Show line rate as specific column.
-
-### `show_branch`
-
-Show branch rate as specific column.
-
-### `show_class_names`
-
-Show class names instead of file names.
-
-### `show_missing`
-
-Show line numbers of statements, per module, that weren't executed.
-
-### `show_missing_max_length`
-
-Crop missing line numbers strings that exceeds this length, provided as an integer.
-
-Default is no crop.
-
-(Note: "..." is appended to a cropped string)
-
-### `only_changed_files`
-
-Only show coverage for changed files.
-
-### `report_name`
-
-Use a unique name for the report and comment.
-
-### `pull_request_number` **Optional**
-
-Pull request number associated with the report. This property should be used when workflow trigger is different than `pull_request`.
 
 ## Example usage
 
