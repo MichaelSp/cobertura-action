@@ -15,24 +15,24 @@ async function readCoverageFromFile(path, options) {
   const xml = await fs.readFile(path, "utf-8");
   const { coverage } = await parseString(xml, {
     explicitArray: false,
-    mergeAttrs: true
+    mergeAttrs: true,
   });
   const { packages } = coverage;
   const classes = processPackages(packages);
   const files = classes
     .filter(Boolean)
-    .map(klass => {
+    .map((klass) => {
       return {
         ...calculateRates(klass),
         filename: klass["filename"],
         name: klass["name"],
-        missing: missingLines(klass)
+        missing: missingLines(klass),
       };
     })
-    .filter(file => options.skipCovered === false || file.total < 100);
+    .filter((file) => options.skipCovered === false || file.total < 100);
   return {
     ...calculateRates(coverage),
-    files
+    files,
   };
 }
 
@@ -59,12 +59,12 @@ async function processCoverage(path, options) {
   const paths = glob.hasMagic(path) ? await glob(path) : [path];
   const positionOfFirstDiff = longestCommonPrefix(paths);
   return await Promise.all(
-    paths.map(async path => {
+    paths.map(async (path) => {
       const report = await readCoverageFromFile(path, options);
       const folder = trimFolder(path, positionOfFirstDiff);
       return {
         ...report,
-        folder
+        folder,
       };
     })
   );
@@ -72,7 +72,7 @@ async function processCoverage(path, options) {
 
 function processPackages(packages) {
   if (packages.package instanceof Array) {
-    return packages.package.map(p => processPackage(p)).flat();
+    return packages.package.map((p) => processPackage(p)).flat();
   } else if (packages.package) {
     return processPackage(packages.package);
   } else {
@@ -105,7 +105,7 @@ function calculateRates(element) {
   return {
     total,
     line,
-    branch
+    branch,
   };
 }
 
@@ -126,10 +126,10 @@ function missingLines(klass) {
   const lines = getLines(klass).sort(
     (a, b) => parseInt(a.number) - parseInt(b.number)
   );
-  const statements = lines.map(line => line.number);
+  const statements = lines.map((line) => line.number);
   const misses = lines
-    .filter(line => parseInt(line.hits) < 1)
-    .map(line => line.number);
+    .filter((line) => parseInt(line.hits) < 1)
+    .map((line) => line.number);
   return formatLines(statements, misses);
 }
 
@@ -147,7 +147,7 @@ function formatLines(statements, lines) {
   const ranges = [];
   let start = null;
   let linesCursor = 0;
-  let end;
+  let end = null;
   for (const statement of statements) {
     if (linesCursor >= lines.length) break;
 
@@ -169,7 +169,7 @@ function formatLines(statements, lines) {
 
   // Convert ranges to a comma separated string
   return ranges
-    .map(range => {
+    .map((range) => {
       const [start, end] = range;
       return start === end ? start : start + "-" + end;
     })
@@ -200,5 +200,5 @@ function longestCommonPrefix(paths) {
 
 module.exports = {
   processCoverage,
-  trimFolder
+  trimFolder,
 };

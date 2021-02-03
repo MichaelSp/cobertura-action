@@ -41,7 +41,7 @@ test("processCoverage(test-branch.xml, {skipCovered: false})", async () => {
 
 test("processCoverage({skipCovered: true})", async () => {
   const reports = await processCoverage("./src/fixtures/test-branch.xml", {
-    skipCovered: true
+    skipCovered: true,
   });
   expect(reports.length).toBe(1);
   expect(reports[0].total).toBe(82.5);
@@ -63,7 +63,7 @@ test("processCoverage({skipCovered: true})", async () => {
 
 test("processCoverage(test-branch.xml, {skipCovered: true})", async () => {
   const reports = await processCoverage("./src/fixtures/test-branch.xml", {
-    skipCovered: true
+    skipCovered: true,
   });
   expect(reports[0].total).toBe(82.5);
   const files = reports[0].files;
@@ -84,7 +84,7 @@ test("processCoverage(test-branch.xml, {skipCovered: true})", async () => {
 
 test("processCoverage(test-no-branch.xml, {skipCovered: true})", async () => {
   const reports = await processCoverage("./src/fixtures/test-no-branch.xml", {
-    skipCovered: true
+    skipCovered: true,
   });
   expect(reports[0].total).toBe(90);
   const files = reports[0].files;
@@ -105,7 +105,7 @@ test("processCoverage(test-no-branch.xml, {skipCovered: true})", async () => {
 
 test("processCoverage(test-istanbul.xml, {skipCovered: false})", async () => {
   const reports = await processCoverage("./src/fixtures/test-istanbul.xml", {
-    skipCovered: false
+    skipCovered: false,
   });
   expect(reports[0].total).toBe(100);
   const files = reports[0].files;
@@ -128,7 +128,7 @@ test("processCoverage(test-istanbul-single.xml, {skipCovered: false})", async ()
   const reports = await processCoverage(
     "./src/fixtures/test-istanbul-single.xml",
     {
-      skipCovered: false
+      skipCovered: false,
     }
   );
   expect(reports[0].total).toBe(100);
@@ -144,7 +144,7 @@ test("processCoverage(test-istanbul-single.xml, {skipCovered: false})", async ()
 
 test("processCoverage(test-python.xml, {skipCovered: false})", async () => {
   const reports = await processCoverage("./src/fixtures/test-python.xml", {
-    skipCovered: false
+    skipCovered: false,
   });
   expect(reports[0].total).toBe(90);
   const files = reports[0].files;
